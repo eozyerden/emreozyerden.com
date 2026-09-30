@@ -1,0 +1,136 @@
+/* Ana sayfa (index.qmd, tr/index.qmd): kimlik bloğu ve "Recent work" kartları.
+   Yalnızca bu iki sayfaya yüklenir (ön bilgide css:). */
+
+/* Quarto'nun başlık bloğu gizli; ad kimlik bloğundaki <h1>'de. title
+   tanımlı olmazsa Quarto sayfadaki ilk <h1>'i başlık bloğuna taşıyor. */
+#title-block-header {
+  display: none;
+}
+
+.identity {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin: 1.5rem 0 2rem;
+}
+
+.identity img {
+  flex: 0 0 140px;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.identity-name {
+  margin: 0 0 0.25rem;
+}
+
+.identity-title {
+  margin-bottom: 0.5rem;
+}
+
+.icon-links {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.3rem;
+}
+
+.icon-links a {
+  color: var(--site-muted);
+}
+
+.icon-links a:hover {
+  color: var(--bs-primary);
+}
+
+.work-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Renkler styles/custom.scss'teki değişkenlerden (--site-*). Kartın zemini
+   beyaz ($site-card-bg; Data & Code'daki veri seti bloğu da), sayfa zemini
+   ton (DECISIONS "Arka plan tonu", "Kart tonu"). */
+.work-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--site-card-bg);
+  border: 1px solid var(--site-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.work-card p {
+  margin-bottom: 0.5rem;
+}
+
+/* .work-label stili styles/custom.scss içinde (.label-heading ile ortak). */
+
+.work-card .work-title {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 600;
+}
+
+/* Kart başlığı bağlantı (kaydın sayfasına); görünüm düz başlıkla aynı,
+   üzerine gelince altı çizili. */
+.work-card .work-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.work-card .work-title a:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.work-card .work-note {
+  font-size: 0.9em;
+  color: var(--site-label);
+}
+
+/* Bağlantı kartın dibinde hizalı */
+.work-card p:has(> .work-link) {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* Mobil: ilk satırda fotoğraf ve ad yan yana; unvan satırları ve simge
+   bağlantılar altta tam genişlikte. İç <div> grid'e katılmasın diye
+   display: contents. */
+@media (max-width: 767.98px) {
+  .identity {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 0 1rem;
+    align-items: center;
+  }
+
+  .identity > div {
+    display: contents;
+  }
+
+  .identity img {
+    width: 96px;
+    height: 96px;
+  }
+
+  .identity-name {
+    margin: 0;
+  }
+
+  .identity-title,
+  .icon-links {
+    grid-column: 1 / -1;
+  }
+
+  .identity-title {
+    margin-top: 0.75rem;
+  }
+
+  .work-cards {
+    grid-template-columns: 1fr;
+  }
+}
